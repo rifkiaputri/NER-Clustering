@@ -99,3 +99,13 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# Data
+annotated_datasets
+datasets
+results/CL1199
+results/CL1667
+
+# Local config
+.idea
+config.py

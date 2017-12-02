@@ -1,0 +1,17 @@
+CL1199
+Location: 123
+Person: 524
+Organization: 11245
+Misc: 11124
+GPE: 3844
+Total Words: 220602
+Total Documents: 340
+
+CL1667
+Location: 1792
+Person: 3242
+Organization: 98536
+Misc: 128141
+GPE: 29141
+Total Words: 1737529
+Total Documents: 3520
