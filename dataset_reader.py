@@ -17,8 +17,8 @@ def get_dataset():
     :return: list of document name and its content
     """
     print('Reading dataset...')
-    files = glob.glob('datasets/partial/CL1667_0404.txt')
-    #files = glob.glob('datasets/partial/*.txt')
+    #files = glob.glob('datasets/partial/CL1667_0404.txt')
+    files = glob.glob('datasets/*/*.txt')
     data = []
     for file in files:
         with open(file, 'r', encoding='utf8') as f:
@@ -70,33 +70,9 @@ def tokenize_per_sentence(text):
 
     for sentence in sentences:
         pos_token = j.seg(sentence, pos=True)
-        print(pos_token)
-        len_tok = len(pos_token)
-        prev_tok = ''
-        prev_pos = ''
         token = []
         for i, item in enumerate(pos_token):
-            pos_tag = item[1]
             tok = item[0]
-            if pos_tag == 'NN':
-                if prev_tok != '' and prev_pos == 'NN':
-                    token.append(prev_tok)
-                if i == len_tok - 1:
-                    token.append(tok)
-                prev_tok = tok
-                prev_pos = 'NN'
-            else:
-                if pos_tag in ['Nfg', 'Ndabc', 'Nca'] and prev_pos == 'NN':
-                    token.append(prev_tok + ' ' + tok)
-                    prev_tok = ''
-                    prev_pos = ''
-                else:
-                    if prev_tok != '':
-                        token.append(prev_tok)
-                    token.append(tok)
-                    prev_tok = ''
-                    prev_pos = ''
-        print(token)
+            token.append(tok)
         tokens.append(token)
-    quit()
     return tokens

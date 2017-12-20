@@ -100,7 +100,7 @@ def main():
         try:
             terms[idx] = embedding[term]
         except KeyError:
-            pass
+            terms[idx] = np.zeros(2)
 
     print('Start clustering...')
 
