@@ -97,10 +97,13 @@ def main():
 
     terms = np.zeros((vocab_size, 2))
     for idx, term in enumerate(vocabulary):
-        try:
-            terms[idx] = embedding[term]
-        except KeyError:
-            terms[idx] = np.zeros(2)
+        term_item = term.split()
+        for item in term_item:
+            try:
+                vec = embedding[item]
+            except KeyError:
+                vec = np.zeros(2)
+            terms[idx] = (terms[idx] + vec) / 2
 
     print('Start clustering...')
 

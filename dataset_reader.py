@@ -18,7 +18,7 @@ def get_dataset():
     """
     print('Reading dataset...')
     #files = glob.glob('datasets/partial/CL1667_0404.txt')
-    files = glob.glob('datasets/*/*.txt')
+    files = glob.glob('datasets/partial/*.txt')
     data = []
     for file in files:
         with open(file, 'r', encoding='utf8') as f:
@@ -55,7 +55,6 @@ def tokenize(text):
                     tokens.append(tok)
                 prev_tok = ''
                 prev_pos = ''
-
     return tokens
 
 
