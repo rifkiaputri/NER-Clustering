@@ -122,7 +122,7 @@ def main():
         print('For n_clusters =', n_cluster, 'The average silhouette_score is :', silhouette_avg)
 
     '''
-    optimum_cluster = 3
+    optimum_cluster = 2
     print('Number of optimum cluster is=', optimum_cluster)
     clustering = cluster_kmeans(optimum_cluster)
     clustering.fit(terms)

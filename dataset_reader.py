@@ -45,7 +45,7 @@ def tokenize(text):
         for item in pos_token:
             pos_tag = item[1]
             tok = item[0]
-            if pos_tag in ['NN', 'P21']:
+            if pos_tag == 'P21' or (pos_tag == 'NN' and tok.isdigit()):
                 prev_tok = tok
                 prev_pos = pos_tag
             else:
