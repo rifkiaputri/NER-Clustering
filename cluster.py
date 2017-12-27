@@ -106,7 +106,7 @@ def main():
             terms[idx] = (terms[idx] + vec) / 2
 
     print('Start clustering...')
-
+    quit()
     '''
     n_clusters = [3, 4, 5, 6, 7]
     max_score = 0

@@ -1,5 +1,6 @@
 import glob
 import re
+import jieba.posseg as pseg
 
 from stopwords_zh import ZH_STOP_WORDS
 from jseg import Jieba
@@ -18,7 +19,7 @@ def get_dataset():
     """
     print('Reading dataset...')
     #files = glob.glob('datasets/partial/CL1667_0404.txt')
-    files = glob.glob('datasets/partial/*.txt')
+    files = glob.glob('datasets/*/*.txt')
     data = []
     for file in files:
         with open(file, 'r', encoding='utf8') as f:
@@ -37,9 +38,15 @@ def tokenize(text):
     """
     sentences = text.splitlines()
     tokens = []
-
+    it = 0
     for sentence in sentences:
         pos_token = j.seg(sentence, pos=True)
+        print(pos_token)
+        seg = pseg.cut(sentence)
+        test = []
+        for tok in seg:
+            test.append((tok.word, tok.flag))
+        print('Baru:', test)
         prev_tok = ''
         prev_pos = ''
         for item in pos_token:
@@ -55,6 +62,9 @@ def tokenize(text):
                     tokens.append(tok)
                 prev_tok = ''
                 prev_pos = ''
+        it += 1
+        if it >= 6:
+            quit()
     return tokens
 
 
@@ -66,12 +76,10 @@ def tokenize_per_sentence(text):
     """
     sentences = text.splitlines()
     tokens = []
-
     for sentence in sentences:
-        pos_token = j.seg(sentence, pos=True)
+        seg_tokens = pseg.cut(sentence)
         token = []
-        for i, item in enumerate(pos_token):
-            tok = item[0]
-            token.append(tok)
+        for tok in seg_tokens:
+            token.append(tok.word)
         tokens.append(token)
     return tokens
