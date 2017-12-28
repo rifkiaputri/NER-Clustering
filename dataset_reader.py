@@ -18,8 +18,7 @@ def get_dataset():
     :return: list of document name and its content
     """
     print('Reading dataset...')
-    #files = glob.glob('datasets/partial/CL1667_0404.txt')
-    files = glob.glob('datasets/*/*.txt')
+    files = glob.glob('datasets/partial/*.txt')
     data = []
     for file in files:
         with open(file, 'r', encoding='utf8') as f:
@@ -38,33 +37,31 @@ def tokenize(text):
     """
     sentences = text.splitlines()
     tokens = []
-    it = 0
     for sentence in sentences:
-        pos_token = j.seg(sentence, pos=True)
-        print(pos_token)
+        #pos_token = j.seg(sentence, pos=True)
         seg = pseg.cut(sentence)
-        test = []
+        pos_token = []
         for tok in seg:
-            test.append((tok.word, tok.flag))
-        print('Baru:', test)
+            pos_token.append((tok.word, tok.flag))
         prev_tok = ''
         prev_pos = ''
         for item in pos_token:
             pos_tag = item[1]
             tok = item[0]
-            if pos_tag == 'P21' or (pos_tag == 'NN' and tok.isdigit()):
+            if (pos_tag == 'm' and tok.isdigit()) or pos_tag == 'n':
                 prev_tok = tok
                 prev_pos = pos_tag
-            else:
-                if pos_tag in ['Nfg', 'Ndabc', 'Nca'] and prev_pos == 'NN':
-                    tokens.append(prev_tok + ' ' + tok)
-                elif pos_tag in ['Nca'] and prev_pos == 'P21':
-                    tokens.append(tok)
+            elif pos_tag in ['nt', 'ns']:
+                if prev_pos == 'm':
+                    tokens.append(prev_tok)
+                tokens.append(tok)
                 prev_tok = ''
                 prev_pos = ''
-        it += 1
-        if it >= 6:
-            quit()
+            else:
+                if (pos_tag == 'm' and prev_pos == 'm') or (pos_tag == 'nr' and prev_pos == 'n'):
+                    tokens.append(prev_tok + ' ' + tok)
+                prev_tok = ''
+                prev_pos = ''
     return tokens
 
 

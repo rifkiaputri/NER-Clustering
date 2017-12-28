@@ -106,9 +106,7 @@ def main():
             terms[idx] = (terms[idx] + vec) / 2
 
     print('Start clustering...')
-    quit()
-    '''
-    n_clusters = [3, 4, 5, 6, 7]
+    n_clusters = [2, 3, 4, 5, 6, 7]
     max_score = 0
     optimum_cluster = 0
     for n_cluster in n_clusters:
@@ -121,8 +119,6 @@ def main():
             optimum_cluster = n_cluster
         print('For n_clusters =', n_cluster, 'The average silhouette_score is :', silhouette_avg)
 
-    '''
-    optimum_cluster = 2
     print('Number of optimum cluster is=', optimum_cluster)
     clustering = cluster_kmeans(optimum_cluster)
     clustering.fit(terms)
