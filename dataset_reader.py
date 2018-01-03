@@ -51,15 +51,17 @@ def tokenize(text):
             if (pos_tag == 'm' and tok.isdigit()) or pos_tag == 'n':
                 prev_tok = tok
                 prev_pos = pos_tag
-            elif pos_tag in ['nt', 'ns']:
-                if prev_pos == 'm':
+            elif pos_tag in ['nt', 'ns', 'nr']:
+                if pos_tag == 'n':
                     tokens.append(prev_tok)
                 tokens.append(tok)
                 prev_tok = ''
                 prev_pos = ''
             else:
-                if (pos_tag == 'm' and prev_pos == 'm') or (pos_tag == 'nr' and prev_pos == 'n'):
+                if (pos_tag == 'm' and prev_pos == 'm') or (pos_tag == 'nr' and prev_pos == 'n') or (pos_tag == 'n' and prev_pos == 'n'):
                     tokens.append(prev_tok + ' ' + tok)
+                elif prev_pos == 'n' and pos_tag != 'n':
+                    tokens.append(prev_tok)
                 prev_tok = ''
                 prev_pos = ''
     return tokens
